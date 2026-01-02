@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ChevronRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,7 +12,7 @@ const Hero: React.FC = () => {
       image:
         'https://images.pexels.com/photos/5668859/pexels-photo-5668859.jpeg',
     },
-    /* 
+    /*
     {
       title: 'Sistemas de Protección Avanzados',
       subtitle: 'Tecnología de vanguardia combinada con personal experto',
@@ -59,9 +58,9 @@ const Hero: React.FC = () => {
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            <img 
-              src="/src/assets/Argenta_Shield_Small.png" 
-              alt="Argenta Security" 
+            <img
+              src="/images/Argenta_Shield_Small.png"
+              alt="Argenta Security"
               className="h-12 sm:h-16 md:h-20 w-auto mx-auto mb-6 max-w-xs sm:max-w-sm"
             />
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -71,14 +70,14 @@ const Hero: React.FC = () => {
               {slides[currentSlide].subtitle}
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-                            
+
             </div>
           </div>
         </div>
       </div>
 
       {/* Carousel indicators */}
-  
+
     </section>
   );
 };

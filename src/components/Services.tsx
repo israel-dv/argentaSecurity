@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Users, Clock, ClipboardList, Cctv, Shield, Eye, ChevronDown, ChevronUp } from 'lucide-react';
+import { Users, Clock, ClipboardList, Shield, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -71,7 +71,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         </div>
       </div>
       <p className="text-gray-600 mb-4">{description}</p>
-      
+
       <div className={`overflow-hidden transition-all duration-300 ${
         isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
       }`}>

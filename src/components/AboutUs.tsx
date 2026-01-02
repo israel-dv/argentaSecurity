@@ -47,7 +47,7 @@ const AboutUs: React.FC = () => {
  <p className="text-gray-600 mb-6">
    En <b>Argenta</b>, no vendemos servicios, <b>construimos confianza, blindamos operaciones y contribuimos a la continuidad de tu negocio en un entorno complejo y retador</b>.
 
-           </p>  
+           </p>
             <p className="text-gray-600 mb-6">
               <h3 className="text-xl font-semibold mb-3 text-[var(--primary-blue)]">
                 Nuestra misión
@@ -124,14 +124,14 @@ Ser el aliado estratégico para proteger la continuidad de nuestros clientes y e
             <div className="relative">
               <div className="rounded-lg overflow-hidden shadow-xl">
                 <img
-                  src="src/assets/guardia-quienes-somos.jpg"
+                  src="/images/guardia-quienes-somos.jpg"
                   alt="Equipo de Argenta Seguridad"
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
                 <img
-                  src="/src/assets/Argenta_Shield_Small.png"
+                  src="/images/Argenta_Shield_Small.png"
                   alt="Operaciones de seguridad"
                   className="w-32 h-32 object-cover rounded"
                 />

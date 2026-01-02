@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,16 +32,16 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <header 
+    <header
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <a href="#home" className="flex items-center">
-          <img 
-            src="/src/assets/argenta_final_logo.png" 
-            alt="Argenta Security" 
+          <img
+            src="/images/argenta_final_logo.png"
+            alt="Argenta Security"
             className="h-12 w-auto"
           />
         </a>
@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
         </nav>
 
         {/* Mobile menu button */}
-        <button 
+        <button
           className="md:hidden focus:outline-none"
           onClick={toggleMobileMenu}
           aria-label="Alternar menú"

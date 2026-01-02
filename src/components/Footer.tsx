@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-  Shield,
   Facebook,
   Twitter,
   Instagram,
   Linkedin,
-  ChevronRight,
   Send,
 } from 'lucide-react';
 
@@ -40,7 +38,7 @@ const Footer: React.FC = () => {
     company: [
       { name: 'Nosotros', href: '#about' },
       { name: 'Contacto', href: '#contact' },
-      
+
     ],
     services: [
       { name: 'Servicio de Guardias de Seguridad', href: '#services' },
@@ -65,14 +63,14 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center mb-6">
-              <img 
-                src="/src/assets/argenta_final_logo.png" 
+              <img
+                src="/images/argenta_final_logo.png"
 
-                alt="Argenta Security" 
+                alt="Argenta Security"
                 className="h-12 w-auto"
               />
             </div>
-           
+
             <div className="flex space-x-4">
               <a
                 href="#"
@@ -106,7 +104,7 @@ const Footer: React.FC = () => {
               <h3 className="text-xl font-bold mb-6 text-white">
                 Forma parte de nuestro equipo de trabajo
               </h3>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <div>
                   <label htmlFor="job-name" className="block text-white/90 mb-2 text-sm">
@@ -169,7 +167,7 @@ const Footer: React.FC = () => {
                   />
                 </div>
               </div>
-              
+
               <button
                 type="submit"
                 className="bg-white text-[var(--primary-blue)] px-6 py-2 rounded-md flex items-center gap-2 hover:bg-white/90 transition duration-300 font-medium"
