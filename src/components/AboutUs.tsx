@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, {useRef, useEffect} from 'react';
 
 const AboutUs: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -9,21 +9,21 @@ const AboutUs: React.FC = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if ( entry.isIntersecting ) {
             entry.target.classList.add('opacity-100', 'translate-y-0');
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      {threshold: 0.1}
     );
 
-    if (textRef.current) observer.observe(textRef.current);
-    if (imageRef.current) observer.observe(imageRef.current);
+    if ( textRef.current ) observer.observe(textRef.current);
+    if ( imageRef.current ) observer.observe(imageRef.current);
 
     return () => {
-      if (textRef.current) observer.unobserve(textRef.current);
-      if (imageRef.current) observer.unobserve(imageRef.current);
+      if ( textRef.current ) observer.unobserve(textRef.current);
+      if ( imageRef.current ) observer.unobserve(imageRef.current);
     };
   }, []);
 
@@ -39,27 +39,43 @@ const AboutUs: React.FC = () => {
               ¿Quiénes somos?
             </h2>
             <p className="text-gray-600 mb-6">
-    Somos una compañía mexicana dedicada a crear valor real para nuestros clientes. Analizamos  a profundidad su entorno de riesgos y diseñamos soluciones a la medida basadas en datos, tendencias, protocolos y estándares internacionales. Nuestro compromiso va más allá de la seguridad: fortalecemos la seguridad de tu empresa, reducimos la rotación de guardias mediante beneficios y programas de crecimiento y profesionalización además de que construimos relaciones de confianza que garantizan la continuidad y tranquilidad en cada proyecto.
+              Somos una empresa mexicana especializada en gestión de riesgos y seguridad física, diseñada para crear
+              valor para nuestros clientes mediante soluciones basadas en estándares internacionales y una operación
+              centrada en las personas.
             </p>
-             <p className="text-gray-600 mb-6">
-               Sabemos que cada <b>cliente</b> es único, por eso personalizamos cada solución de seguridad con base en <b>análisis de riesgos profundos, procesos estandarizados bajo normativas nacionales e internacionales, simulaciones de escenarios críticos y entrenamiento continuo de nuestro personal</b>.
-               </p>
- <p className="text-gray-600 mb-6">
-   En <b>Argenta</b>, no vendemos servicios, <b>construimos confianza, blindamos operaciones y contribuimos a la continuidad de tu negocio en un entorno complejo y retador</b>.
+            <p className="text-gray-600 mb-6">
+              Analizamos a detalle el <b>entorno operativo</b> de cada cliente y diseñamos estrategias que integran
+              tecnología,
+              inteligencia y protocolos que cumplen con las mejores prácticas globales.
+            </p>
+            <p className="text-gray-600 mb-6">
+              Creemos que la <b>seguridad sostenible</b> se logra cuidando a las personas. Por ello, impulsamos el
+              bienestar y
+              el desarrollo profesional de nuestros guardias, reduciendo la rotación y elevando la calidad del servicio.
 
-           </p>
+            </p>
             <p className="text-gray-600 mb-6">
               <h3 className="text-xl font-semibold mb-3 text-[var(--primary-blue)]">
                 Nuestra misión
               </h3>
-              Proteger lo que más valoras con inteligencia, tecnología y
-              soluciones integrales.
+              Proteger los activos y la continuidad operativa de nuestros clientes mediante soluciones de seguridad
+              basadas en análisis de riesgo, tecnología, talento profesional y un modelo operativo que cuida y
+              desarrolla a nuestras personas.
             </p>
             <p className="text-gray-600 mb-6">
               <h3 className="text-xl font-semibold mb-3 text-[var(--primary-blue)]">
                 Nuestra visión
               </h3>
-Ser el aliado estratégico para proteger la continuidad de nuestros clientes y el modelo a seguir para profesionalizar y dignificar la labor del guardia de seguridad.
+              Ser la empresa líder en seguridad y gestión de riesgos que establece el estándar por su innovación
+              tecnológica, confiabilidad y por dignificar la profesión del guardia de seguridad, ofreciendo a nuestros
+              clientes continuidad operativa con excelencia.
+            </p>
+
+            <p className="text-gray-600 mb-6">
+              <h3 className="text-xl font-semibold mb-3 text-[var(--primary-blue)]">
+                Propósito
+              </h3>
+              Proteger a nuestros clientes y cuidar a nuestras personas.
             </p>
 
             <p className="text-gray-600 mb-6">
@@ -80,7 +96,7 @@ Ser el aliado estratégico para proteger la continuidad de nuestros clientes y e
                   <div className="bg-[var(--primary-blue)]/10 p-1 rounded-full mr-3 mt-1">
                     <div className="w-2 h-2 bg-[var(--primary-blue)] rounded-full"></div>
                   </div>
-                  <span className="text-gray-700">Lealtad </span>
+                  <span className="text-gray-700">Bienestar </span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-[var(--primary-blue)]/10 p-1 rounded-full mr-3 mt-1">

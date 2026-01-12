@@ -6,19 +6,19 @@ const Hero: React.FC = () => {
 
   const slides = [
     {
-      title: 'PROTECCIÓN ESTRATÉGICA CON GESTIÓN DE RIESGOS',
+      title: 'Servicio de seguridad privada con gestión de riesgos',
       subtitle:
         'Convertimos la seguridad en una ventaja clave para tu negocio',
       image:
         'https://images.pexels.com/photos/5668859/pexels-photo-5668859.jpeg',
     },
-    /*
     {
       title: 'Sistemas de Protección Avanzados',
       subtitle: 'Tecnología de vanguardia combinada con personal experto',
       image:
         'https://images.pexels.com/photos/5699516/pexels-photo-5699516.jpeg',
     },
+    /*
     {
       title: 'Estándares Globales de Seguridad',
       subtitle:

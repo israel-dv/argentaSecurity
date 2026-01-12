@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, Phone, Mail, MapPin } from 'lucide-react';
+import React, {useState, useRef, useEffect} from 'react';
+import {Send, Mail, MapPin} from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,20 +21,20 @@ const Contact: React.FC = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('opacity-100', 'translate-y-0');
-          location: '',
+            location: '',
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      {threshold: 0.1}
     );
 
-    if (formRef.current) observer.observe(formRef.current);
-    if (infoRef.current) observer.observe(infoRef.current);
+    if ( formRef.current ) observer.observe(formRef.current);
+    if ( infoRef.current ) observer.observe(infoRef.current);
 
     return () => {
-      if (formRef.current) observer.unobserve(formRef.current);
-      if (infoRef.current) observer.unobserve(infoRef.current);
+      if ( formRef.current ) observer.unobserve(formRef.current);
+      if ( infoRef.current ) observer.unobserve(infoRef.current);
     };
   }, []);
 
@@ -43,8 +43,8 @@ const Contact: React.FC = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const {name, value} = e.target;
+    setFormData((prev) => ( {...prev, [name]: value} ));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -59,25 +59,26 @@ const Contact: React.FC = () => {
         phone: '',
         service: '',
         message: '',
+        location: '',
       });
       setIsSubmitted(false);
     }, 5000);
   };
 
   const contactInfo = [
+    // {
+    //   icon: <Phone className="h-5 w-5"/>,
+    //   title: 'Teléfono',
+    //   details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
+    // },
     {
-      icon: <Phone className="h-5 w-5" />,
-      title: 'Teléfono',
-      details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
-    },
-    {
-      icon: <Mail className="h-5 w-5" />,
+      icon: <Mail className="h-5 w-5"/>,
       title: 'Correo',
-      details: ['info@argentasecurity.com', 'soporte@argentasecurity.com'],
+      details: ['administracion@argentaseguridad.com'],
     },
     {
-      icon: <MapPin className="h-5 w-5" />,
-      title: 'Dirección',
+      icon: <MapPin className="h-5 w-5"/>,
+      title: 'Dirección corporativa',
       details: ['', 'Celaya, Guanajuato, México'],
     },
   ];
@@ -98,13 +99,13 @@ const Contact: React.FC = () => {
             className="bg-white rounded-lg shadow-lg p-8 opacity-0 translate-y-10 transition duration-700 ease-out"
           >
             <h3 className="text-2xl font-bold mb-6 text-[var(--primary-blue)]">
-             Estamos para ayudarte
+              Estamos para ayudarte
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div>
                 <label htmlFor="name" className="block text-gray-700 mb-2">
-                  Nombre 
+                  Nombre
                 </label>
                 <input
                   type="text"
@@ -159,7 +160,7 @@ const Contact: React.FC = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)]"
                 />
               </div>
-             
+
             </div>
 
             <div className="mb-6">
@@ -181,7 +182,7 @@ const Contact: React.FC = () => {
               type="submit"
               className="bg-[var(--primary-blue)] text-white px-6 py-3 rounded-md flex items-center justify-center gap-2 hover:bg-[var(--secondary-blue)] transition duration-300 w-full"
             >
-              Enviar <Send className="h-5 w-5" />
+              Enviar <Send className="h-5 w-5"/>
             </button>
 
             {isSubmitted && (
@@ -198,7 +199,8 @@ const Contact: React.FC = () => {
             <div className="bg-[var(--primary-blue)] rounded-lg shadow-lg p-8 text-white h-full flex flex-col">
               <h3 className="text-2xl font-bold mb-6">Medios de contacto</h3>
               <p className="mb-8">
-                Nuestros expertos en gestión de riesgos atenderán tus requerimientos para proporcionar soluciones adaptadas a tus necesidades.
+                Nuestros expertos en gestión de riesgos atenderán tus requerimientos para proporcionar soluciones
+                adaptadas a tus necesidades.
               </p>
 
               <div className="space-y-6 mb-auto">
@@ -221,7 +223,7 @@ const Contact: React.FC = () => {
                 ))}
               </div>
 
-            
+
             </div>
           </div>
         </div>
