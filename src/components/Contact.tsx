@@ -1,235 +1,304 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {Send, Mail, MapPin} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { MapPin, Mail, Send, Loader2 } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
+import { CONTACT_INFO } from '@/data';
+import { useReveal } from '@/hooks/useReveal';
 
-const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
+const ICONS: Record<string, typeof MapPin> = { MapPin, Mail };
+
+type FormState = {
+  name: string;
+  email: string;
+  phone: string;
+  location: string;
+  message: string;
+};
+
+type Errors = Partial<Record<keyof FormState, string>>;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^[\d\s+()-]{7,20}$/;
+const NAME_RE = /^[\p{L}\s'.-]{2,80}$/u;
+
+function validate(form: FormState): Errors {
+  const errors: Errors = {};
+
+  if (!form.name.trim()) {
+    errors.name = 'Ingresa tu nombre.';
+  } else if (!NAME_RE.test(form.name)) {
+    errors.name = 'El nombre solo puede contener letras y espacios.';
+  }
+
+  if (!form.email.trim()) {
+    errors.email = 'Ingresa tu correo electrónico.';
+  } else if (!EMAIL_RE.test(form.email)) {
+    errors.email = 'Ingresa un correo electrónico válido.';
+  }
+
+  if (form.phone && !PHONE_RE.test(form.phone)) {
+    errors.phone = 'Ingresa un teléfono válido (7 a 20 dígitos).';
+  }
+
+  if (form.location && form.location.trim().length > 80) {
+    errors.location = 'El lugar no puede exceder 80 caracteres.';
+  }
+
+  if (!form.message.trim()) {
+    errors.message = 'Cuéntanos en qué podemos ayudarte.';
+  } else if (form.message.trim().length < 10) {
+    errors.message = 'El mensaje debe tener al menos 10 caracteres.';
+  } else if (form.message.length > 1000) {
+    errors.message = 'El mensaje no puede exceder 1000 caracteres.';
+  }
+
+  return errors;
+}
+
+export default function Contact() {
+  const formRef = useReveal<HTMLFormElement>();
+  const infoRef = useReveal<HTMLDivElement>();
+  const [fsState, fsSubmit] = useForm('xeajdoae');
+  const [touched, setTouched] = useState<Record<keyof FormState, boolean>>({
+    name: false,
+    email: false,
+    phone: false,
+    location: false,
+    message: false,
+  });
+  const [form, setForm] = useState<FormState>({
     name: '',
     email: '',
     phone: '',
     location: '',
-    service: '',
     message: '',
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const formRef = useRef<HTMLFormElement>(null);
-  const infoRef = useRef<HTMLDivElement>(null);
+  const errors = validate(form);
+
+  const update = (key: keyof FormState, value: string) =>
+    setForm((f) => ({ ...f, [key]: value }));
+
+  const blur = (key: keyof FormState) =>
+    setTouched((t) => ({ ...t, [key]: true }));
+
+  const showError = (key: keyof FormState) => touched[key] && errors[key];
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setTouched({ name: true, email: true, phone: true, location: true, message: true });
+    if (Object.keys(errors).length > 0) return;
+    fsSubmit(e);
+  };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-            location: '',
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {threshold: 0.1}
-    );
-
-    if ( formRef.current ) observer.observe(formRef.current);
-    if ( infoRef.current ) observer.observe(infoRef.current);
-
-    return () => {
-      if ( formRef.current ) observer.unobserve(formRef.current);
-      if ( infoRef.current ) observer.unobserve(infoRef.current);
-    };
-  }, []);
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const {name, value} = e.target;
-    setFormData((prev) => ( {...prev, [name]: value} ));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(formData);
-    setIsSubmitted(true);
-
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        message: '',
-        location: '',
-      });
-      setIsSubmitted(false);
-    }, 5000);
-  };
-
-  const contactInfo = [
-    // {
-    //   icon: <Phone className="h-5 w-5"/>,
-    //   title: 'Teléfono',
-    //   details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
-    // },
-    {
-      icon: <Mail className="h-5 w-5"/>,
-      title: 'Correo',
-      details: ['administracion@argentaseguridad.com'],
-    },
-    {
-      icon: <MapPin className="h-5 w-5"/>,
-      title: 'Dirección corporativa',
-      details: ['', 'Celaya, Guanajuato, México'],
-    },
-  ];
+    if (fsState.succeeded) {
+      setForm({ name: '', email: '', phone: '', location: '', message: '' });
+      setTouched({ name: false, email: false, phone: false, location: false, message: false });
+    }
+  }, [fsState.succeeded]);
 
   return (
-    <section id="contact" className="py-20 bg-[var(--light-gray)]">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--primary-blue)]">
+    <section id="contacto" className="bg-navy-50/40 py-20">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mb-16 text-center">
+          <h2 className="mb-4 font-display text-4xl font-bold text-navy-900 sm:text-5xl">
             Contáctanos
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="bg-white rounded-lg shadow-lg p-8 opacity-0 translate-y-10 transition duration-700 ease-out"
+            ref={formRef.ref}
+            onSubmit={onSubmit}
+            noValidate
+            className={`rounded-lg bg-white p-8 shadow-lg transition duration-700 ease-out ${
+              formRef.visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}
           >
-            <h3 className="text-2xl font-bold mb-6 text-[var(--primary-blue)]">
+            <h3 className="mb-6 font-display text-2xl font-bold text-navy-900">
               Estamos para ayudarte
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div>
-                <label htmlFor="name" className="block text-gray-700 mb-2">
-                  Nombre
-                </label>
+            <input type="hidden" name="_subject" value="Nuevo mensaje de Contacto" />
+
+            <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+              <Field label="Nombre" required error={showError('name')}>
                 <input
+                  required
                   type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)]"
-                  required
+                  name="nombre"
+                  maxLength={80}
+                  value={form.name}
+                  onChange={(e) => update('name', e.target.value)}
+                  onBlur={() => blur('name')}
+                  className="argenta-input"
+                  placeholder="Tu nombre completo"
                 />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-gray-700 mb-2">
-                  Correo electrónico
-                </label>
+                <ValidationError
+                  field="nombre"
+                  errors={fsState.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
+              </Field>
+              <Field label="Correo electrónico" required error={showError('email')}>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)]"
                   required
+                  type="email"
+                  name="correo"
+                  maxLength={120}
+                  value={form.email}
+                  onChange={(e) => update('email', e.target.value)}
+                  onBlur={() => blur('email')}
+                  className="argenta-input"
+                  placeholder="nombre@correo.com"
                 />
-              </div>
+                <ValidationError
+                  field="correo"
+                  errors={fsState.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
+              </Field>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div>
-                <label htmlFor="phone" className="block text-gray-700 mb-2">
-                  Teléfono
-                </label>
+            <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+              <Field label="Teléfono" error={showError('phone')}>
                 <input
                   type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)]"
+                  name="teléfono"
+                  maxLength={20}
+                  value={form.phone}
+                  onChange={(e) => update('phone', e.target.value)}
+                  onBlur={() => blur('phone')}
+                  className="argenta-input"
+                  placeholder="Opcional"
                 />
-              </div>
-              <div>
-                <label htmlFor="location" className="block text-gray-700 mb-2">
-                  ¿De dónde nos escribes?
-                </label>
+                <ValidationError
+                  field="teléfono"
+                  errors={fsState.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
+              </Field>
+              <Field label="¿De dónde nos escribes?" error={showError('location')}>
                 <input
                   type="text"
-                  id="location"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)]"
+                  name="ubicación"
+                  maxLength={80}
+                  value={form.location}
+                  onChange={(e) => update('location', e.target.value)}
+                  onBlur={() => blur('location')}
+                  className="argenta-input"
+                  placeholder="Opcional"
                 />
-              </div>
-
+                <ValidationError
+                  field="ubicación"
+                  errors={fsState.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
+              </Field>
             </div>
 
             <div className="mb-6">
-              <label htmlFor="message" className="block text-gray-700 mb-2">
-                Tu mensaje (servicio de interés)
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)]"
-                required
-              ></textarea>
+              <Field label="Tu mensaje (servicio de interés)" required error={showError('message')}>
+                <textarea
+                  required
+                  name="mensaje"
+                  rows={5}
+                  maxLength={1000}
+                  value={form.message}
+                  onChange={(e) => update('message', e.target.value)}
+                  onBlur={() => blur('message')}
+                  className="argenta-input resize-none"
+                  placeholder="Cuéntanos cómo podemos ayudarte"
+                />
+                <ValidationError
+                  field="mensaje"
+                  errors={fsState.errors}
+                  className="mt-1 text-sm text-red-600"
+                />
+              </Field>
             </div>
+
+            {fsState.errors && fsState.errors.length > 0 && (
+              <p className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                No pudimos enviar tu mensaje. Inténtalo de nuevo.
+              </p>
+            )}
 
             <button
               type="submit"
-              className="bg-[var(--primary-blue)] text-white px-6 py-3 rounded-md flex items-center justify-center gap-2 hover:bg-[var(--secondary-blue)] transition duration-300 w-full"
+              disabled={fsState.submitting}
+              className="flex w-full items-center justify-center gap-2 rounded-md bg-navy-900 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-navy-800 disabled:opacity-70"
             >
-              Enviar <Send className="h-5 w-5"/>
+              {fsState.submitting ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" /> Enviando…
+                </>
+              ) : (
+                <>
+                  Enviar <Send className="h-5 w-5" />
+                </>
+              )}
             </button>
 
-            {isSubmitted && (
-              <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
+            {fsState.succeeded && (
+              <div className="mt-4 rounded-md bg-green-100 px-4 py-3 text-green-800">
                 ¡Gracias por tu mensaje! Te contactaremos pronto.
               </div>
             )}
           </form>
 
           <div
-            ref={infoRef}
-            className="opacity-0 translate-y-10 transition duration-700 ease-out"
+            ref={infoRef.ref}
+            className={`transition duration-700 ease-out ${
+              infoRef.visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}
           >
-            <div className="bg-[var(--primary-blue)] rounded-lg shadow-lg p-8 text-white h-full flex flex-col">
-              <h3 className="text-2xl font-bold mb-6">Medios de contacto</h3>
+            <div className="flex h-full flex-col rounded-lg bg-navy-900 p-8 text-white shadow-lg">
+              <h3 className="mb-6 font-display text-2xl font-bold">Medios de contacto</h3>
               <p className="mb-8">
-                Nuestros expertos en gestión de riesgos atenderán tus requerimientos para proporcionar soluciones
-                adaptadas a tus necesidades.
+                Nuestros expertos en gestión de riesgos atenderán tus requerimientos para
+                proporcionar soluciones adaptadas a tus necesidades.
               </p>
-
-              <div className="space-y-6 mb-auto">
-                {contactInfo.map((item, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="bg-white/10 p-3 rounded-full mr-4">
-                      {item.icon}
+              <div className="mb-auto space-y-6">
+                {CONTACT_INFO.map((c) => {
+                  const Icon = ICONS[c.icon] ?? Mail;
+                  return (
+                    <div key={c.label} className="flex items-start">
+                      <div className="mr-4 rounded-full bg-white/10 p-3">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="mb-1 text-lg font-semibold">{c.label}</h4>
+                        <p className="break-all text-white/80 sm:break-normal">{c.value}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">
-                        {item.title}
-                      </h4>
-                      {item.details.map((detail, i) => (
-                        <p key={i} className="text-white/80">
-                          {detail}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
-
-
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
+}
 
-export default Contact;
+function Field({
+  label,
+  required,
+  error,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  error?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label className="mb-2 block text-gray-700">{label}</label>
+      {children}
+      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+    </div>
+  );
+}

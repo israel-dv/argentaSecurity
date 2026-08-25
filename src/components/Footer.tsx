@@ -1,207 +1,242 @@
-import React from 'react';
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Send,
-} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Facebook, Instagram, Linkedin, Send, Loader2 } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
 
-const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
+type JobState = {
+  name: string;
+  position: string;
+  phone: string;
+  email: string;
+};
 
-  const [jobFormData, setJobFormData] = React.useState({
+type Errors = Partial<Record<keyof JobState, string>>;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^[\d\s+()-]{7,20}$/;
+const NAME_RE = /^[\p{L}\s'.-]{2,80}$/u;
+
+function validate(job: JobState): Errors {
+  const errors: Errors = {};
+
+  if (!job.name.trim()) {
+    errors.name = 'Ingresa tu nombre.';
+  } else if (!NAME_RE.test(job.name)) {
+    errors.name = 'El nombre solo puede contener letras y espacios.';
+  }
+
+  if (!job.position.trim()) {
+    errors.position = 'Ingresa el puesto de interés.';
+  } else if (job.position.trim().length > 80) {
+    errors.position = 'El puesto no puede exceder 80 caracteres.';
+  }
+
+  if (!job.phone.trim()) {
+    errors.phone = 'Ingresa tu teléfono.';
+  } else if (!PHONE_RE.test(job.phone)) {
+    errors.phone = 'Ingresa un teléfono válido (7 a 20 dígitos).';
+  }
+
+  if (!job.email.trim()) {
+    errors.email = 'Ingresa tu correo electrónico.';
+  } else if (!EMAIL_RE.test(job.email)) {
+    errors.email = 'Ingresa un correo electrónico válido.';
+  }
+
+  return errors;
+}
+
+export default function Footer() {
+  const year = new Date().getFullYear();
+  const [fsState, fsSubmit] = useForm('xwlezplr');
+  const [touched, setTouched] = useState<Record<keyof JobState, boolean>>({
+    name: false,
+    position: false,
+    phone: false,
+    email: false,
+  });
+  const [job, setJob] = useState<JobState>({
     name: '',
     position: '',
     phone: '',
     email: '',
   });
 
-  const handleJobFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setJobFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const errors = validate(job);
 
-  const handleJobFormSubmit = (e: React.FormEvent) => {
+  const update = (key: keyof JobState, value: string) =>
+    setJob((j) => ({ ...j, [key]: value }));
+
+  const blur = (key: keyof JobState) =>
+    setTouched((t) => ({ ...t, [key]: true }));
+
+  const showError = (key: keyof JobState) => touched[key] && errors[key];
+
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Job application:', jobFormData);
-    // Reset form
-    setJobFormData({
-      name: '',
-      position: '',
-      phone: '',
-      email: '',
-    });
+    setTouched({ name: true, position: true, phone: true, email: true });
+    if (Object.keys(errors).length > 0) return;
+    fsSubmit(e);
   };
 
-  const footerLinks = {
-    company: [
-      { name: 'Nosotros', href: '#about' },
-      { name: 'Contacto', href: '#contact' },
-
-    ],
-    services: [
-      { name: 'Servicio de Guardias de Seguridad', href: '#services' },
-      { name: 'Entrenamientos', href: '#services' },
-      { name: 'Análisis de Riesgos', href: '#services' },
-      { name: 'Estrategias de Seguridad Específicas', href: '#services' },
-      { name: 'Tecnología de Vigilancia y Monitoreo de Riesgos', href: '#services' },
-      { name: 'Reportes Digitales de Seguridad', href: '#services' },
-
-    ],
-    resources: [
-      { name: 'Blog', href: '#blog' },
-      { name: 'Capacitación', href: '#training' },
-      { name: 'Casos de Éxito', href: '#case-studies' },
-      { name: 'Preguntas Frecuentes', href: '#faq' },
-    ],
-  };
+  useEffect(() => {
+    if (fsState.succeeded) {
+      setJob({ name: '', position: '', phone: '', email: '' });
+      setTouched({ name: false, position: false, phone: false, email: false });
+    }
+  }, [fsState.succeeded]);
 
   return (
-    <footer id="jobs" className="bg-[var(--primary-blue)] text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer id="bolsa-de-trabajo" className="bg-navy-900 text-white">
+      <div className="mx-auto max-w-7xl px-4 py-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="flex items-center mb-6">
+            <div className="mb-6 flex items-center">
               <img
-                src="/images/argenta_final_logo.png"
-
-                alt="Argenta Security"
-                className="h-12 w-auto"
+                src="/images/Logo_oscuro.png"
+                alt="Sentinel"
+                className="h-12 w-auto rounded-lg sm:h-14"
               />
             </div>
-
             <div className="flex space-x-4">
-              <a
-                href="#"
-                className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition duration-300"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition duration-300"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition duration-300"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition duration-300"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
+              {[Facebook, Instagram, Linkedin].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="rounded-full bg-white/10 p-2 transition duration-300 hover:bg-white/20"
+                  aria-label="Red social"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
             </div>
           </div>
 
           <div className="md:col-span-1 lg:col-span-3">
-            <form onSubmit={handleJobFormSubmit} className="bg-white/10 rounded-lg p-6">
-              <h3 className="text-xl font-bold mb-6 text-white">
+            <form
+              onSubmit={onSubmit}
+              noValidate
+              className="rounded-lg bg-white/10 p-6"
+            >
+              <h3 className="mb-6 text-xl font-bold text-white">
                 Forma parte de nuestro equipo de trabajo
               </h3>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                <div>
-                  <label htmlFor="job-name" className="block text-white/90 mb-2 text-sm">
-                    Nombre
-                  </label>
+              <input type="hidden" name="mensaje" value="Solicitud de empleo" />
+              <input type="hidden" name="_subject" value="Nueva solicitud de empleo" />
+              <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <JobField label="Nombre" error={showError('name')}>
                   <input
                     type="text"
-                    id="job-name"
-                    name="name"
-                    value={jobFormData.name}
-                    onChange={handleJobFormChange}
-                    className="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-md text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    name="nombre"
+                    maxLength={80}
+                    value={job.name}
+                    onChange={(e) => update('name', e.target.value)}
+                    onBlur={() => blur('name')}
+                    className="argenta-job-input"
                     placeholder="Tu nombre completo"
                     required
                   />
-                </div>
-                <div>
-                  <label htmlFor="job-position" className="block text-white/90 mb-2 text-sm">
-                    Puesto
-                  </label>
+                  <ValidationError
+                    field="nombre"
+                    errors={fsState.errors}
+                    className="mt-1 text-sm text-red-300"
+                  />
+                </JobField>
+                <JobField label="Puesto" error={showError('position')}>
                   <input
                     type="text"
-                    id="job-position"
-                    name="position"
-                    value={jobFormData.position}
-                    onChange={handleJobFormChange}
-                    className="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-md text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    name="puesto"
+                    maxLength={80}
+                    value={job.position}
+                    onChange={(e) => update('position', e.target.value)}
+                    onBlur={() => blur('position')}
+                    className="argenta-job-input"
                     placeholder="Puesto de interés"
                     required
                   />
-                </div>
-                <div>
-                  <label htmlFor="job-phone" className="block text-white/90 mb-2 text-sm">
-                    Teléfono
-                  </label>
+                  <ValidationError
+                    field="puesto"
+                    errors={fsState.errors}
+                    className="mt-1 text-sm text-red-300"
+                  />
+                </JobField>
+                <JobField label="Teléfono" error={showError('phone')}>
                   <input
                     type="tel"
-                    id="job-phone"
-                    name="phone"
-                    value={jobFormData.phone}
-                    onChange={handleJobFormChange}
-                    className="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-md text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    name="teléfono"
+                    maxLength={20}
+                    value={job.phone}
+                    onChange={(e) => update('phone', e.target.value)}
+                    onBlur={() => blur('phone')}
+                    className="argenta-job-input"
                     placeholder="Tu número de teléfono"
                     required
                   />
-                </div>
-                <div>
-                  <label htmlFor="job-email" className="block text-white/90 mb-2 text-sm">
-                    Correo electrónico
-                  </label>
+                  <ValidationError
+                    field="teléfono"
+                    errors={fsState.errors}
+                    className="mt-1 text-sm text-red-300"
+                  />
+                </JobField>
+                <JobField label="Correo electrónico" error={showError('email')}>
                   <input
                     type="email"
-                    id="job-email"
                     name="email"
-                    value={jobFormData.email}
-                    onChange={handleJobFormChange}
-                    className="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-md text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    maxLength={120}
+                    value={job.email}
+                    onChange={(e) => update('email', e.target.value)}
+                    onBlur={() => blur('email')}
+                    className="argenta-job-input"
                     placeholder="tu@email.com"
                     required
                   />
-                </div>
+                  <ValidationError
+                    field="email"
+                    errors={fsState.errors}
+                    className="mt-1 text-sm text-red-300"
+                  />
+                </JobField>
               </div>
-
               <button
                 type="submit"
-                className="bg-white text-[var(--primary-blue)] px-6 py-2 rounded-md flex items-center gap-2 hover:bg-white/90 transition duration-300 font-medium"
+                disabled={fsState.submitting}
+                className="flex items-center gap-2 rounded-md bg-white px-6 py-2 font-medium text-navy-900 transition duration-300 hover:bg-white/90 disabled:opacity-70"
               >
-                Enviar solicitud <Send className="h-4 w-4" />
+                {fsState.submitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" /> Enviando…
+                  </>
+                ) : (
+                  <>
+                    Enviar solicitud <Send className="h-4 w-4" />
+                  </>
+                )}
               </button>
+              {fsState.errors && fsState.errors.length > 0 && (
+                <p className="mt-4 text-sm text-red-300">
+                  No pudimos enviar tu solicitud. Inténtalo de nuevo.
+                </p>
+              )}
+              {fsState.succeeded && (
+                <p className="mt-4 text-sm text-white/80">
+                  ¡Gracias! Hemos recibido tu solicitud.
+                </p>
+              )}
             </form>
           </div>
-
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/80 mb-4 md:mb-0">
-            &copy; {currentYear} Argenta Risk Management. Todos los derechos
-            reservados.
+        <div className="mt-12 flex flex-col items-center justify-between border-t border-white/20 pt-8 md:flex-row">
+          <p className="mb-4 text-white/80 md:mb-0">
+            © {year} Argenta Risk Management. Todos los derechos reservados.
           </p>
-
           <div className="flex flex-wrap justify-center space-x-4">
-            <a
-              href="#"
-              className="text-white/80 hover:text-white transition duration-300"
-            >
+            <a href="#" className="text-white/80 transition duration-300 hover:text-white">
               Política de Privacidad
             </a>
-            <a
-              href="#"
-              className="text-white/80 hover:text-white transition duration-300"
-            >
+            <a href="#" className="text-white/80 transition duration-300 hover:text-white">
               Términos de Servicio
             </a>
-            <a
-              href="#"
-              className="text-white/80 hover:text-white transition duration-300"
-            >
+            <a href="#" className="text-white/80 transition duration-300 hover:text-white">
               Política de Cookies
             </a>
           </div>
@@ -209,6 +244,22 @@ const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
+}
 
-export default Footer;
+function JobField({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label className="mb-2 block text-sm text-white/90">{label}</label>
+      {children}
+      {error && <p className="mt-1 text-sm text-red-300">{error}</p>}
+    </div>
+  );
+}

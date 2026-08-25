@@ -1,25 +1,23 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import AboutUs from './components/AboutUs';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import './styles/globals.css';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import Strengths from '@/components/Strengths';
+import Services from '@/components/Services';
+import Different from '@/components/Different';
+import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
 
-function App() {
+export default function App() {
   return (
-    <div className="font-sans">
+    <div className="min-h-screen overflow-x-hidden bg-white">
       <Navbar />
       <main>
         <Hero />
+        <Strengths />
         <Services />
-        <AboutUs />
+        <Different />
         <Contact />
       </main>
       <Footer />
     </div>
   );
 }
-
-export default App;
