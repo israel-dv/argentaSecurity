@@ -1,4 +1,4 @@
-export const HERO_IMAGE = '/images/landing_inicio.png';
+export const HERO_IMAGE = '/images/landing_inicio_.png';
 
 export const STRENGTHS = [
   { label: 'Tecnología', value: 95 },

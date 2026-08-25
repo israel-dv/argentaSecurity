@@ -245,6 +245,23 @@ export default function Contact() {
                 ¡Gracias por tu mensaje! Te contactaremos pronto.
               </div>
             )}
+
+            <p className="mt-5 text-xs leading-relaxed text-gray-500">
+              <strong className="font-bold text-gray-600">Aviso de Privacidad Simplificado:</strong>{' '}
+              Argenta Risk Management, con domicilio en Celaya, Guanajuato, México, utilizará tus datos
+              personales (nombre, correo, teléfono y empresa) para atender tus solicitudes de
+              información, cotizaciones y dar seguimiento comercial. Tus datos se procesan de forma
+              segura mediante nuestro encargado técnico Formspree. Para conocer más sobre el
+              tratamiento de tus datos y cómo ejercer tus derechos ARCO, consulta nuestro{' '}
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent('open-privacy-policy'))}
+                className="font-medium text-navy-700 underline underline-offset-2 transition-colors hover:text-navy-900"
+              >
+                Aviso de Privacidad Integral
+              </button>
+              .
+            </p>
           </form>
 
           <div

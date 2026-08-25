@@ -2,6 +2,7 @@ import { useReveal } from '@/hooks/useReveal';
 
 export default function Strengths() {
   const { ref, visible } = useReveal<HTMLDivElement>();
+  const imgReveal = useReveal<HTMLDivElement>();
 
   return (
     <section
@@ -29,7 +30,12 @@ export default function Strengths() {
             visible ? 'is-visible' : ''
           }`}
         >
-          <div className="w-full max-w-md overflow-hidden rounded-2xl shadow-2xl">
+          <div
+            ref={imgReveal.ref}
+            className={`w-full max-w-md overflow-hidden rounded-2xl shadow-2xl reveal-img ${
+              imgReveal.visible ? 'is-visible' : ''
+            }`}
+          >
             <img
               src="/images/Cliente_.png"
               alt="Atención al cliente"

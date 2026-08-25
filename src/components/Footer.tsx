@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Facebook, Instagram, Linkedin, Send, Loader2 } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Send, Loader2, X } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
+import { privacyContent } from '@/privacyContent';
 
 type JobState = {
   name: string;
@@ -48,6 +49,7 @@ function validate(job: JobState): Errors {
 export default function Footer() {
   const year = new Date().getFullYear();
   const [fsState, fsSubmit] = useForm('xwlezplr');
+  const [privacyOpen, setPrivacyOpen] = useState(false);
   const [touched, setTouched] = useState<Record<keyof JobState, boolean>>({
     name: false,
     position: false,
@@ -85,8 +87,26 @@ export default function Footer() {
     }
   }, [fsState.succeeded]);
 
+  useEffect(() => {
+    if (!privacyOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setPrivacyOpen(false);
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [privacyOpen]);
+
+  useEffect(() => {
+    const onOpenRequest = () => setPrivacyOpen(true);
+    window.addEventListener('open-privacy-policy', onOpenRequest);
+    return () => window.removeEventListener('open-privacy-policy', onOpenRequest);
+  }, []);
+
   return (
-    <footer id="bolsa-de-trabajo" className="bg-navy-900 text-white">
+    <>
+      <footer id="bolsa-de-trabajo" className="bg-navy-900 text-white">
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -101,7 +121,7 @@ export default function Footer() {
               {[Facebook, Instagram, Linkedin].map((Icon, i) => (
                 <a
                   key={i}
-                  href="#"
+                 
                   className="rounded-full bg-white/10 p-2 transition duration-300 hover:bg-white/20"
                   aria-label="Red social"
                 >
@@ -221,6 +241,23 @@ export default function Footer() {
                   ¡Gracias! Hemos recibido tu solicitud.
                 </p>
               )}
+
+              <p className="mt-5 text-xs leading-relaxed text-white/50">
+                <strong className="font-bold text-white/70">Aviso de Privacidad Simplificado:</strong>{' '}
+                Argenta Risk Management, con domicilio en Celaya, Guanajuato, México, utilizará tus
+                datos personales (nombre, correo, teléfono y empresa) de manera exclusiva para la
+                evaluación de tu perfil en procesos de reclutamiento y selección de personal presentes
+                o futuros. Tus datos son recolectados a través de la plataforma Formspree. Consulta el
+                procedimiento para ejercer tus derechos ARCO en nuestro{' '}
+                <button
+                  type="button"
+                  onClick={() => setPrivacyOpen(true)}
+                  className="font-medium text-white/80 underline underline-offset-2 transition-colors hover:text-white"
+                >
+                  Aviso de Privacidad Integral
+                </button>
+                .
+              </p>
             </form>
           </div>
         </div>
@@ -230,19 +267,91 @@ export default function Footer() {
             © {year} Argenta Risk Management. Todos los derechos reservados.
           </p>
           <div className="flex flex-wrap justify-center space-x-4">
-            <a href="#" className="text-white/80 transition duration-300 hover:text-white">
+            <button
+              type="button"
+              onClick={() => setPrivacyOpen(true)}
+              className="text-white/80 transition duration-300 hover:text-white"
+            >
               Política de Privacidad
-            </a>
-            <a href="#" className="text-white/80 transition duration-300 hover:text-white">
-              Términos de Servicio
-            </a>
-            <a href="#" className="text-white/80 transition duration-300 hover:text-white">
-              Política de Cookies
-            </a>
+            </button>
           </div>
         </div>
       </div>
-    </footer>
+      </footer>
+
+      {privacyOpen && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-navy-950/80 p-4 backdrop-blur-sm sm:p-6"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setPrivacyOpen(false);
+          }}
+        >
+          <section
+            className="flex h-[min(90vh,800px)] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="privacy-policy-title"
+          >
+            <div className="flex items-center justify-between gap-4 border-b border-navy-100 bg-navy-900 px-5 py-4 text-white sm:px-6">
+              <h2 id="privacy-policy-title" className="text-lg font-bold sm:text-xl">
+                Política de Privacidad
+              </h2>
+              <button
+                type="button"
+                onClick={() => setPrivacyOpen(false)}
+                className="rounded-full p-2 text-white/80 transition hover:bg-white/10 hover:text-white"
+                aria-label="Cerrar Política de Privacidad"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto bg-slate-50 px-5 py-6 sm:px-8 sm:py-8">
+              <div className="mx-auto max-w-3xl space-y-3 text-[15px] leading-relaxed text-slate-700 sm:text-base">
+                {privacyContent.map((para, idx) => {
+                  if (para.empty) {
+                    return <div key={idx} className="h-3" />;
+                  }
+                  if (para.heading) {
+                    const sizeClass =
+                      para.headingLevel <= 1
+                        ? 'text-xl font-bold text-navy-900 sm:text-2xl'
+                        : 'text-lg font-bold text-navy-800 sm:text-xl';
+                    return (
+                      <h3 key={idx} className={`pt-2 ${sizeClass}`}>
+                        {para.text}
+                      </h3>
+                    );
+                  }
+                  if (para.bold) {
+                    return (
+                      <p key={idx} className="font-bold text-slate-900">
+                        {para.text}
+                      </p>
+                    );
+                  }
+                  if (para.segments) {
+                    return (
+                      <p key={idx}>
+                        {para.segments.map((seg, sidx) => (
+                          <span
+                            key={sidx}
+                            className={seg.bold ? 'font-bold text-slate-900' : ''}
+                          >
+                            {seg.text}
+                          </span>
+                        ))}
+                      </p>
+                    );
+                  }
+                  return <p key={idx}>{para.text}</p>;
+                })}
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
+    </>
   );
 }
 

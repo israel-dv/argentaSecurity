@@ -37,9 +37,11 @@ export default function Navbar() {
           />
         </a>
 
-        <span className="text-base font-bold tracking-wide text-white sm:text-lg">
+        <span className="hidden lg:block text-base font-bold tracking-wide text-white sm:text-lg">
           Seguridad Privada
         </span>
+
+        <div className={`hidden lg:block h-8 w-px bg-white/25 transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
 
         <ul className="hidden items-center gap-7 xl:gap-9 lg:flex">
           {LINKS.map((l) => (

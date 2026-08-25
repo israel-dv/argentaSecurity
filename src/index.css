@@ -37,4 +37,24 @@ body {
   .reveal.is-visible {
     animation: fade-up 0.8s ease-out;
   }
+  .reveal-img {
+    opacity: 0;
+    transform: scale(0.92) translateY(40px);
+  }
+  .reveal-img.is-visible {
+    animation: reveal-img 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes reveal-img {
+    0% {
+      opacity: 0;
+      transform: scale(0.92) translateY(40px);
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
 }
