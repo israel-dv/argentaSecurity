@@ -85,7 +85,13 @@ export default function Contact() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setTouched({ name: true, email: true, phone: true, location: true, message: true });
+    setTouched({
+      name: true,
+      email: true,
+      phone: true,
+      location: true,
+      message: true,
+    });
     if (Object.keys(errors).length > 0) return;
     fsSubmit(e);
   };
@@ -93,7 +99,13 @@ export default function Contact() {
   useEffect(() => {
     if (fsState.succeeded) {
       setForm({ name: '', email: '', phone: '', location: '', message: '' });
-      setTouched({ name: false, email: false, phone: false, location: false, message: false });
+      setTouched({
+        name: false,
+        email: false,
+        phone: false,
+        location: false,
+        message: false,
+      });
     }
   }, [fsState.succeeded]);
 
@@ -112,14 +124,20 @@ export default function Contact() {
             onSubmit={onSubmit}
             noValidate
             className={`rounded-lg bg-white p-8 shadow-lg transition duration-700 ease-out ${
-              formRef.visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              formRef.visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
             }`}
           >
             <h3 className="mb-6 font-display text-2xl font-bold text-navy-900">
               Estamos para ayudarte
             </h3>
 
-            <input type="hidden" name="_subject" value="Nuevo mensaje de Contacto" />
+            <input
+              type="hidden"
+              name="_subject"
+              value="Nuevo mensaje de Contacto"
+            />
 
             <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
               <Field label="Nombre" required error={showError('name')}>
@@ -140,7 +158,11 @@ export default function Contact() {
                   className="mt-1 text-sm text-red-600"
                 />
               </Field>
-              <Field label="Correo electrónico" required error={showError('email')}>
+              <Field
+                label="Correo electrónico"
+                required
+                error={showError('email')}
+              >
                 <input
                   required
                   type="email"
@@ -178,7 +200,10 @@ export default function Contact() {
                   className="mt-1 text-sm text-red-600"
                 />
               </Field>
-              <Field label="¿De dónde nos escribes?" error={showError('location')}>
+              <Field
+                label="¿De dónde nos escribes?"
+                error={showError('location')}
+              >
                 <input
                   type="text"
                   name="ubicación"
@@ -198,7 +223,11 @@ export default function Contact() {
             </div>
 
             <div className="mb-6">
-              <Field label="Tu mensaje (servicio de interés)" required error={showError('message')}>
+              <Field
+                label="Tu mensaje (servicio de interés)"
+                required
+                error={showError('message')}
+              >
                 <textarea
                   required
                   name="mensaje"
@@ -247,15 +276,21 @@ export default function Contact() {
             )}
 
             <p className="mt-5 text-xs leading-relaxed text-gray-500">
-              <strong className="font-bold text-gray-600">Aviso de Privacidad Simplificado:</strong>{' '}
-              Argenta Risk Management, con domicilio en Celaya, Guanajuato, México, utilizará tus datos
-              personales (nombre, correo, teléfono y empresa) para atender tus solicitudes de
-              información, cotizaciones y dar seguimiento comercial. Tus datos se procesan de forma
-              segura mediante nuestro encargado técnico Formspree. Para conocer más sobre el
-              tratamiento de tus datos y cómo ejercer tus derechos ARCO, consulta nuestro{' '}
+              <strong className="font-bold text-gray-600">
+                Aviso de Privacidad Simplificado:
+              </strong>{' '}
+              Argenta Risk Management, con domicilio en Celaya, Guanajuato,
+              México, utilizará tus datos personales (nombre, correo, teléfono y
+              empresa) para atender tus solicitudes de información, cotizaciones
+              y dar seguimiento comercial. Tus datos se procesan de forma segura
+              mediante nuestro encargado técnico Formspree. Para conocer más
+              sobre el tratamiento de tus datos y cómo ejercer tus derechos
+              ARCO, consulta nuestro{' '}
               <button
                 type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('open-privacy-policy'))}
+                onClick={() =>
+                  window.dispatchEvent(new CustomEvent('open-privacy-policy'))
+                }
                 className="font-medium text-navy-700 underline underline-offset-2 transition-colors hover:text-navy-900"
               >
                 Aviso de Privacidad Integral
@@ -267,14 +302,19 @@ export default function Contact() {
           <div
             ref={infoRef.ref}
             className={`transition duration-700 ease-out ${
-              infoRef.visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              infoRef.visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
             }`}
           >
             <div className="flex h-full flex-col rounded-lg bg-navy-900 p-8 text-white shadow-lg">
-              <h3 className="mb-6 font-display text-2xl font-bold">Medios de contacto</h3>
+              <h3 className="mb-6 font-display text-2xl font-bold">
+                Medios de contacto
+              </h3>
               <p className="mb-8">
-                Nuestros expertos en gestión de riesgos atenderán tus requerimientos para
-                proporcionar soluciones adaptadas a tus necesidades.
+                Nuestros expertos en gestión de riesgos atenderán tus
+                requerimientos para proporcionar soluciones adaptadas a tus
+                necesidades.
               </p>
               <div className="mb-auto space-y-6">
                 {CONTACT_INFO.map((c) => {
@@ -285,8 +325,12 @@ export default function Contact() {
                         <Icon className="h-5 w-5" />
                       </div>
                       <div className="min-w-0">
-                        <h4 className="mb-1 text-lg font-semibold">{c.label}</h4>
-                        <p className="break-all text-white/80 sm:break-normal">{c.value}</p>
+                        <h4 className="mb-1 text-lg font-semibold">
+                          {c.label}
+                        </h4>
+                        <p className="break-all text-white/80 sm:break-normal">
+                          {c.value}
+                        </p>
                       </div>
                     </div>
                   );
@@ -313,7 +357,10 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-gray-700">{label}</label>
+      <label className="mb-2 block text-gray-700">
+        {label}
+        {required && <span className="ml-1 text-red-500">*</span>}
+      </label>
       {children}
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
