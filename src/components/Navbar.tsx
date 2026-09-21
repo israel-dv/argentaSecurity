@@ -37,33 +37,39 @@ export default function Navbar() {
           />
         </a>
 
-        <span className="hidden lg:block text-base font-bold tracking-wide text-white sm:text-lg">
+        <span className="hidden text-base font-bold tracking-wide text-white sm:text-lg lg:block">
           Seguridad Privada
         </span>
 
         <div className={`hidden lg:block h-8 w-px bg-white/25 transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
 
-        <ul className="hidden items-center gap-7 xl:gap-9 lg:flex">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="group relative text-xl font-extrabold text-navy-50/90 transition-colors hover:text-white"
-              >
-                {l.label}
-                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full" />
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="text-white lg:hidden"
-          aria-label="Menu"
-        >
+        <div className="flex items-center gap-4 lg:gap-6">
+          <ul className="hidden items-center gap-7 xl:gap-9 lg:flex">
+            {LINKS.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className="group relative text-xl font-extrabold text-navy-50/90 transition-colors hover:text-white"
+                >
+                  {l.label}
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="text-white lg:hidden"
+            aria-label="Menu"
+          >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          </button>
+          <img
+            src="/images/Marca_Guanajuato.png"
+            alt="Marca Guanajuato"
+            className="h-10 w-auto shrink-0 object-contain sm:h-12 lg:h-14"
+          />
+        </div>
       </nav>
 
       {open && (

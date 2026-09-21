@@ -3,6 +3,12 @@ import { Facebook, Instagram, Linkedin, Send, Loader2, X } from 'lucide-react';
 import { useForm, ValidationError } from '@formspree/react';
 import { privacyContent } from '@/privacyContent';
 
+const SOCIAL_LINKS = [
+  { Icon: Facebook, url: 'https://www.facebook.com/argenta.risk.management', label: 'Facebook' },
+  { Icon: Instagram, url: 'https://www.instagram.com/argentaseguridad', label: 'Instagram' },
+  { Icon: Linkedin, url: 'https://www.linkedin.com/company/argenta-risk-management', label: 'LinkedIn' },
+];
+
 type JobState = {
   name: string;
   position: string;
@@ -108,7 +114,7 @@ export default function Footer() {
     <>
       <footer id="bolsa-de-trabajo" className="bg-navy-900 text-white">
       <div className="mx-auto max-w-7xl px-4 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           <div>
             <div className="mb-6 flex items-center">
               <img
@@ -118,14 +124,16 @@ export default function Footer() {
               />
             </div>
             <div className="flex space-x-4">
-              {[Facebook, Instagram, Linkedin].map((Icon, i) => (
+              {SOCIAL_LINKS.map((social) => (
                 <a
-                  key={i}
-                 
+                  key={social.url}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="rounded-full bg-white/10 p-2 transition duration-300 hover:bg-white/20"
-                  aria-label="Red social"
+                  aria-label={social.label}
                 >
-                  <Icon className="h-5 w-5" />
+                  <social.Icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
@@ -259,6 +267,14 @@ export default function Footer() {
                 .
               </p>
             </form>
+          </div>
+
+          <div className="flex items-start justify-center lg:justify-start">
+            <img
+              src="/images/Marca_Guanajuato.png"
+              alt="Marca Guanajuato"
+              className="w-48 h-auto object-contain sm:w-64 lg:w-96"
+            />
           </div>
         </div>
 
