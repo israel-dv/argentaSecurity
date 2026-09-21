@@ -1,1 +1,9 @@
-yarn commitlint --edit "$1"
+yarn commitlint --edit "$1" || {
+  echo ""
+  echo "✖ Commit rechazado: falta el tipo (prefijo) del mensaje."
+  echo "  Formato esperado: <tipo>(<scope opcional>): <descripción>"
+  echo "  Tipos válidos: feat, fix, hotfix, bugfix, chore, docs, style, refactor, perf, test, build, ci, revert"
+  echo "  Ejemplo: fix: corrige enlace roto en Footer"
+  echo ""
+  exit 1
+}
