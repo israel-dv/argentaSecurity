@@ -32,13 +32,19 @@ export default function Different() {
                   className="h-20 w-20 object-contain transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
-              <h3 className="mt-5 text-center font-display text-lg font-bold text-navy-900">{d.title}</h3>
-              <p className="mt-2 text-justify text-sm leading-relaxed text-gray-600">{d.text}</p>
+              <h3 className="mt-5 text-center font-display text-lg font-bold text-navy-900">
+                {d.title}
+              </h3>
+              <p className="mt-2 text-justify text-sm leading-relaxed text-gray-600">
+                {d.text}
+              </p>
               {d.bullets && (
                 <ol className="mt-3 space-y-2 text-justify text-sm leading-relaxed text-gray-600">
                   {d.bullets.map((b, i) => (
                     <li key={i} className="flex gap-2">
-                      <span className="font-semibold text-navy-700">{i + 1}.</span>
+                      <span className="font-semibold text-navy-700">
+                        {i + 1}.
+                      </span>
                       <span>{b}</span>
                     </li>
                   ))}

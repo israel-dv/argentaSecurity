@@ -52,7 +52,9 @@ function ServiceCard({
                 ))}
               </ol>
             ) : (
-              <p className="mt-3 text-sm leading-relaxed text-white/90">{description}</p>
+              <p className="mt-3 text-sm leading-relaxed text-white/90">
+                {description}
+              </p>
             )}
           </div>
         </div>

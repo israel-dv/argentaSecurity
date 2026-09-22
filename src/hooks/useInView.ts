@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useInView<T extends HTMLElement = HTMLDivElement>(threshold = 0.6) {
+export function useInView<T extends HTMLElement = HTMLDivElement>(
+  threshold = 0.6,
+) {
   const ref = useRef<T>(null);
   const [inView, setInView] = useState(false);
 

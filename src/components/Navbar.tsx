@@ -41,7 +41,9 @@ export default function Navbar() {
           Seguridad Privada
         </span>
 
-        <div className={`hidden lg:block h-8 w-px bg-white/25 transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
+        <div
+          className={`hidden lg:block h-8 w-px bg-white/25 transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`}
+        />
 
         <div className="flex items-center gap-4 lg:gap-6">
           <ul className="hidden items-center gap-7 xl:gap-9 lg:flex">
@@ -62,7 +64,7 @@ export default function Navbar() {
             className="text-white lg:hidden"
             aria-label="Menu"
           >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
           <img
             src="/images/Marca_Guanajuato.png"

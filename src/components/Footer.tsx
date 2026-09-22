@@ -4,9 +4,21 @@ import { useForm, ValidationError } from '@formspree/react';
 import { privacyContent } from '@/privacyContent';
 
 const SOCIAL_LINKS = [
-  { Icon: Facebook, url: 'https://www.facebook.com/argenta.risk.management', label: 'Facebook' },
-  { Icon: Instagram, url: 'https://www.instagram.com/argentaseguridad', label: 'Instagram' },
-  { Icon: Linkedin, url: 'https://www.linkedin.com/company/argenta-risk-management', label: 'LinkedIn' },
+  {
+    Icon: Facebook,
+    url: 'https://www.facebook.com/argenta.risk.management',
+    label: 'Facebook',
+  },
+  {
+    Icon: Instagram,
+    url: 'https://www.instagram.com/argentaseguridad',
+    label: 'Instagram',
+  },
+  {
+    Icon: Linkedin,
+    url: 'https://www.linkedin.com/company/argenta-risk-management',
+    label: 'LinkedIn',
+  },
 ];
 
 type JobState = {
@@ -77,9 +89,10 @@ export default function Footer() {
   const blur = (key: keyof JobState) =>
     setTouched((t) => ({ ...t, [key]: true }));
 
-  const showError = (key: keyof JobState) => touched[key] && errors[key];
+  const showError = (key: keyof JobState) =>
+    touched[key] ? errors[key] : undefined;
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTouched({ name: true, position: true, phone: true, email: true });
     if (Object.keys(errors).length > 0) return;
@@ -107,192 +120,209 @@ export default function Footer() {
   useEffect(() => {
     const onOpenRequest = () => setPrivacyOpen(true);
     window.addEventListener('open-privacy-policy', onOpenRequest);
-    return () => window.removeEventListener('open-privacy-policy', onOpenRequest);
+    return () =>
+      window.removeEventListener('open-privacy-policy', onOpenRequest);
   }, []);
 
   return (
     <>
       <footer id="bolsa-de-trabajo" className="bg-navy-900 text-white">
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
-          <div>
-            <div className="mb-6 flex items-center">
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+            <div>
+              <div className="mb-6 flex items-center">
+                <img
+                  src="/images/Logo_oscuro.png"
+                  alt="Sentinel"
+                  className="h-12 w-auto rounded-lg sm:h-14"
+                />
+              </div>
+              <div className="flex space-x-4">
+                {SOCIAL_LINKS.map((social) => (
+                  <a
+                    key={social.url}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full bg-white/10 p-2 transition duration-300 hover:bg-white/20"
+                    aria-label={social.label}
+                  >
+                    <social.Icon className="h-5 w-5" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="md:col-span-1 lg:col-span-3">
+              <form
+                onSubmit={onSubmit}
+                noValidate
+                className="rounded-lg bg-white/10 p-6"
+              >
+                <h3 className="mb-6 text-xl font-bold text-white">
+                  Forma parte de nuestro equipo de trabajo
+                </h3>
+                <input
+                  type="hidden"
+                  name="mensaje"
+                  value="Solicitud de empleo"
+                />
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="Nueva solicitud de empleo"
+                />
+                <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  <JobField label="Nombre" error={showError('name')}>
+                    <input
+                      type="text"
+                      name="nombre"
+                      maxLength={80}
+                      value={job.name}
+                      onChange={(e) => update('name', e.target.value)}
+                      onBlur={() => blur('name')}
+                      className="argenta-job-input"
+                      placeholder="Tu nombre completo"
+                      required
+                    />
+                    <ValidationError
+                      field="nombre"
+                      errors={fsState.errors}
+                      className="mt-1 text-sm text-red-300"
+                    />
+                  </JobField>
+                  <JobField label="Puesto" error={showError('position')}>
+                    <input
+                      type="text"
+                      name="puesto"
+                      maxLength={80}
+                      value={job.position}
+                      onChange={(e) => update('position', e.target.value)}
+                      onBlur={() => blur('position')}
+                      className="argenta-job-input"
+                      placeholder="Puesto de interés"
+                      required
+                    />
+                    <ValidationError
+                      field="puesto"
+                      errors={fsState.errors}
+                      className="mt-1 text-sm text-red-300"
+                    />
+                  </JobField>
+                  <JobField label="Teléfono" error={showError('phone')}>
+                    <input
+                      type="tel"
+                      name="teléfono"
+                      maxLength={20}
+                      value={job.phone}
+                      onChange={(e) => update('phone', e.target.value)}
+                      onBlur={() => blur('phone')}
+                      className="argenta-job-input"
+                      placeholder="Tu número de teléfono"
+                      required
+                    />
+                    <ValidationError
+                      field="teléfono"
+                      errors={fsState.errors}
+                      className="mt-1 text-sm text-red-300"
+                    />
+                  </JobField>
+                  <JobField
+                    label="Correo electrónico"
+                    error={showError('email')}
+                  >
+                    <input
+                      type="email"
+                      name="email"
+                      maxLength={120}
+                      value={job.email}
+                      onChange={(e) => update('email', e.target.value)}
+                      onBlur={() => blur('email')}
+                      className="argenta-job-input"
+                      placeholder="tu@email.com"
+                      required
+                    />
+                    <ValidationError
+                      field="email"
+                      errors={fsState.errors}
+                      className="mt-1 text-sm text-red-300"
+                    />
+                  </JobField>
+                </div>
+                <button
+                  type="submit"
+                  disabled={fsState.submitting}
+                  className="flex items-center gap-2 rounded-md bg-white px-6 py-2 font-medium text-navy-900 transition duration-300 hover:bg-white/90 disabled:opacity-70"
+                >
+                  {fsState.submitting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" /> Enviando…
+                    </>
+                  ) : (
+                    <>
+                      Enviar solicitud <Send className="h-4 w-4" />
+                    </>
+                  )}
+                </button>
+                {fsState.errors &&
+                  fsState.errors.getFormErrors().length > 0 && (
+                    <p className="mt-4 text-sm text-red-300">
+                      No pudimos enviar tu solicitud. Inténtalo de nuevo.
+                    </p>
+                  )}
+                {fsState.succeeded && (
+                  <p className="mt-4 text-sm text-white/80">
+                    ¡Gracias! Hemos recibido tu solicitud.
+                  </p>
+                )}
+
+                <p className="mt-5 text-xs leading-relaxed text-white/50">
+                  <strong className="font-bold text-white/70">
+                    Aviso de Privacidad Simplificado:
+                  </strong>{' '}
+                  Argenta Risk Management, con domicilio en Celaya, Guanajuato,
+                  México, utilizará tus datos personales (nombre, correo,
+                  teléfono y empresa) de manera exclusiva para la evaluación de
+                  tu perfil en procesos de reclutamiento y selección de personal
+                  presentes o futuros. Tus datos son recolectados a través de la
+                  plataforma Formspree. Consulta el procedimiento para ejercer
+                  tus derechos ARCO en nuestro{' '}
+                  <button
+                    type="button"
+                    onClick={() => setPrivacyOpen(true)}
+                    className="font-medium text-white/80 underline underline-offset-2 transition-colors hover:text-white"
+                  >
+                    Aviso de Privacidad Integral
+                  </button>
+                  .
+                </p>
+              </form>
+            </div>
+
+            <div className="flex items-start justify-center lg:justify-start">
               <img
-                src="/images/Logo_oscuro.png"
-                alt="Sentinel"
-                className="h-12 w-auto rounded-lg sm:h-14"
+                src="/images/Marca_Guanajuato.png"
+                alt="Marca Guanajuato"
+                className="w-48 h-auto object-contain sm:w-64 lg:w-96"
               />
             </div>
-            <div className="flex space-x-4">
-              {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.url}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-white/10 p-2 transition duration-300 hover:bg-white/20"
-                  aria-label={social.label}
-                >
-                  <social.Icon className="h-5 w-5" />
-                </a>
-              ))}
+          </div>
+
+          <div className="mt-12 flex flex-col items-center justify-between border-t border-white/20 pt-8 md:flex-row">
+            <p className="mb-4 text-white/80 md:mb-0">
+              © {year} Argenta Risk Management. Todos los derechos reservados.
+            </p>
+            <div className="flex flex-wrap justify-center space-x-4">
+              <button
+                type="button"
+                onClick={() => setPrivacyOpen(true)}
+                className="text-white/80 transition duration-300 hover:text-white"
+              >
+                Política de Privacidad
+              </button>
             </div>
           </div>
-
-          <div className="md:col-span-1 lg:col-span-3">
-            <form
-              onSubmit={onSubmit}
-              noValidate
-              className="rounded-lg bg-white/10 p-6"
-            >
-              <h3 className="mb-6 text-xl font-bold text-white">
-                Forma parte de nuestro equipo de trabajo
-              </h3>
-              <input type="hidden" name="mensaje" value="Solicitud de empleo" />
-              <input type="hidden" name="_subject" value="Nueva solicitud de empleo" />
-              <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <JobField label="Nombre" error={showError('name')}>
-                  <input
-                    type="text"
-                    name="nombre"
-                    maxLength={80}
-                    value={job.name}
-                    onChange={(e) => update('name', e.target.value)}
-                    onBlur={() => blur('name')}
-                    className="argenta-job-input"
-                    placeholder="Tu nombre completo"
-                    required
-                  />
-                  <ValidationError
-                    field="nombre"
-                    errors={fsState.errors}
-                    className="mt-1 text-sm text-red-300"
-                  />
-                </JobField>
-                <JobField label="Puesto" error={showError('position')}>
-                  <input
-                    type="text"
-                    name="puesto"
-                    maxLength={80}
-                    value={job.position}
-                    onChange={(e) => update('position', e.target.value)}
-                    onBlur={() => blur('position')}
-                    className="argenta-job-input"
-                    placeholder="Puesto de interés"
-                    required
-                  />
-                  <ValidationError
-                    field="puesto"
-                    errors={fsState.errors}
-                    className="mt-1 text-sm text-red-300"
-                  />
-                </JobField>
-                <JobField label="Teléfono" error={showError('phone')}>
-                  <input
-                    type="tel"
-                    name="teléfono"
-                    maxLength={20}
-                    value={job.phone}
-                    onChange={(e) => update('phone', e.target.value)}
-                    onBlur={() => blur('phone')}
-                    className="argenta-job-input"
-                    placeholder="Tu número de teléfono"
-                    required
-                  />
-                  <ValidationError
-                    field="teléfono"
-                    errors={fsState.errors}
-                    className="mt-1 text-sm text-red-300"
-                  />
-                </JobField>
-                <JobField label="Correo electrónico" error={showError('email')}>
-                  <input
-                    type="email"
-                    name="email"
-                    maxLength={120}
-                    value={job.email}
-                    onChange={(e) => update('email', e.target.value)}
-                    onBlur={() => blur('email')}
-                    className="argenta-job-input"
-                    placeholder="tu@email.com"
-                    required
-                  />
-                  <ValidationError
-                    field="email"
-                    errors={fsState.errors}
-                    className="mt-1 text-sm text-red-300"
-                  />
-                </JobField>
-              </div>
-              <button
-                type="submit"
-                disabled={fsState.submitting}
-                className="flex items-center gap-2 rounded-md bg-white px-6 py-2 font-medium text-navy-900 transition duration-300 hover:bg-white/90 disabled:opacity-70"
-              >
-                {fsState.submitting ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" /> Enviando…
-                  </>
-                ) : (
-                  <>
-                    Enviar solicitud <Send className="h-4 w-4" />
-                  </>
-                )}
-              </button>
-              {fsState.errors && fsState.errors.length > 0 && (
-                <p className="mt-4 text-sm text-red-300">
-                  No pudimos enviar tu solicitud. Inténtalo de nuevo.
-                </p>
-              )}
-              {fsState.succeeded && (
-                <p className="mt-4 text-sm text-white/80">
-                  ¡Gracias! Hemos recibido tu solicitud.
-                </p>
-              )}
-
-              <p className="mt-5 text-xs leading-relaxed text-white/50">
-                <strong className="font-bold text-white/70">Aviso de Privacidad Simplificado:</strong>{' '}
-                Argenta Risk Management, con domicilio en Celaya, Guanajuato, México, utilizará tus
-                datos personales (nombre, correo, teléfono y empresa) de manera exclusiva para la
-                evaluación de tu perfil en procesos de reclutamiento y selección de personal presentes
-                o futuros. Tus datos son recolectados a través de la plataforma Formspree. Consulta el
-                procedimiento para ejercer tus derechos ARCO en nuestro{' '}
-                <button
-                  type="button"
-                  onClick={() => setPrivacyOpen(true)}
-                  className="font-medium text-white/80 underline underline-offset-2 transition-colors hover:text-white"
-                >
-                  Aviso de Privacidad Integral
-                </button>
-                .
-              </p>
-            </form>
-          </div>
-
-          <div className="flex items-start justify-center lg:justify-start">
-            <img
-              src="/images/Marca_Guanajuato.png"
-              alt="Marca Guanajuato"
-              className="w-48 h-auto object-contain sm:w-64 lg:w-96"
-            />
-          </div>
         </div>
-
-        <div className="mt-12 flex flex-col items-center justify-between border-t border-white/20 pt-8 md:flex-row">
-          <p className="mb-4 text-white/80 md:mb-0">
-            © {year} Argenta Risk Management. Todos los derechos reservados.
-          </p>
-          <div className="flex flex-wrap justify-center space-x-4">
-            <button
-              type="button"
-              onClick={() => setPrivacyOpen(true)}
-              className="text-white/80 transition duration-300 hover:text-white"
-            >
-              Política de Privacidad
-            </button>
-          </div>
-        </div>
-      </div>
       </footer>
 
       {privacyOpen && (
@@ -310,7 +340,10 @@ export default function Footer() {
             aria-labelledby="privacy-policy-title"
           >
             <div className="flex items-center justify-between gap-4 border-b border-navy-100 bg-navy-900 px-5 py-4 text-white sm:px-6">
-              <h2 id="privacy-policy-title" className="text-lg font-bold sm:text-xl">
+              <h2
+                id="privacy-policy-title"
+                className="text-lg font-bold sm:text-xl"
+              >
                 Política de Privacidad
               </h2>
               <button
@@ -352,7 +385,9 @@ export default function Footer() {
                         {para.segments.map((seg, sidx) => (
                           <span
                             key={sidx}
-                            className={seg.bold ? 'font-bold text-slate-900' : ''}
+                            className={
+                              seg.bold ? 'font-bold text-slate-900' : ''
+                            }
                           >
                             {seg.text}
                           </span>

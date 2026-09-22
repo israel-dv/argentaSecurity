@@ -12,8 +12,7 @@ export const STRENGTHS = [
 export const SERVICES = [
   {
     title: 'EPR: Guardias especialistas en protección y riesgos',
-    description:
-      '',
+    description: '',
     image: '/images/EPR..png',
     bullets: [
       'Seguridad Intramuros con personal que cuenta con un esquema de profesionalización en 3 niveles.',
@@ -22,8 +21,7 @@ export const SERVICES = [
   },
   {
     title: 'PRISMA: Análisis de riesgos en 4 ejes',
-    description:
-      '',
+    description: '',
     image: '/images/PRISMA..png',
     bullets: [
       'Examinamos procesos claves y activos críticos.',
@@ -34,8 +32,7 @@ export const SERVICES = [
   },
   {
     title: 'SILVER: Plataforma digital que centraliza la información operativa',
-    description:
-      '',
+    description: '',
     image: '/images/SILVER..png',
     bullets: [
       'Conoce en tiempo real lo que está ocurriendo en tu operación sin esperar reportes semanales.',
@@ -45,8 +42,7 @@ export const SERVICES = [
   },
   {
     title: 'APOLO: Consultoría estratégica con criterio experto',
-    description:
-      '',
+    description: '',
     image: '/images/APOLO..png',
     bullets: [
       'Reduce pérdidas en inventarios y disrupciones operativas con asesoría especializada.',
@@ -63,12 +59,14 @@ export const DIFFERENCES = [
   },
   {
     image: '/images/Icono_02..png',
-    title: 'Gestionamos la exposición al riesgo mediante nuestra metodología PRISMA.',
+    title:
+      'Gestionamos la exposición al riesgo mediante nuestra metodología PRISMA.',
     text: 'Examinamos los procesos claves e identificamos los activos críticos para decidir que riesgos priorizar y asignar los recursos donde realmente generan valor.',
   },
   {
     image: '/images/Icono_03..png',
-    title: 'Mantenemos una operación estable que fortalece la continuidad del servicio.',
+    title:
+      'Mantenemos una operación estable que fortalece la continuidad del servicio.',
     text: 'Fomentamos el arraigo y pertenencia de nuestro personal a través de:',
     bullets: [
       'Un esquema de crecimiento.',
@@ -98,6 +96,14 @@ export const DIFFERENCES = [
 ];
 
 export const CONTACT_INFO = [
-  { icon: 'Mail', label: 'Correo', value: 'administracion@argentaseguridad.com' },
-  { icon: 'MapPin', label: 'Dirección corporativa', value: 'Celaya, Guanajuato, México' },
+  {
+    icon: 'Mail',
+    label: 'Correo',
+    value: 'administracion@argentaseguridad.com',
+  },
+  {
+    icon: 'MapPin',
+    label: 'Dirección corporativa',
+    value: 'Celaya, Guanajuato, México',
+  },
 ];
