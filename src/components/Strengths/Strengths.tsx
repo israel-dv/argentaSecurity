@@ -1,6 +1,6 @@
 import { useReveal } from '@/hooks/useReveal';
 
-export default function Strengths() {
+export const Strengths = () => {
   const { ref, visible } = useReveal<HTMLDivElement>();
   const imgReveal = useReveal<HTMLDivElement>();
 
@@ -54,4 +54,4 @@ export default function Strengths() {
       </div>
     </section>
   );
-}
+};

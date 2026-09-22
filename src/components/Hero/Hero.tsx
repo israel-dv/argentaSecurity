@@ -1,6 +1,6 @@
 import { HERO_IMAGE } from '@/data';
 
-export default function Hero() {
+export const Hero = () => {
   return (
     <section id="inicio" className="relative w-full overflow-hidden">
       <div
@@ -9,4 +9,4 @@ export default function Hero() {
       />
     </section>
   );
-}
+};

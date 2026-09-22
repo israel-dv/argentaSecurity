@@ -9,7 +9,7 @@ const LINKS = [
   { label: 'Bolsa de Trabajo', href: '#bolsa-de-trabajo' },
 ];
 
-export default function Navbar() {
+export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -93,4 +93,4 @@ export default function Navbar() {
       )}
     </header>
   );
-}
+};

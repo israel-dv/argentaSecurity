@@ -1,7 +1,7 @@
 import { DIFFERENCES } from '@/data';
 import { useReveal } from '@/hooks/useReveal';
 
-export default function Different() {
+export const Different = () => {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -56,4 +56,4 @@ export default function Different() {
       </div>
     </section>
   );
-}
+};

@@ -65,7 +65,7 @@ function ServiceCard({
   );
 }
 
-export default function Services() {
+export const Services = () => {
   return (
     <section id="servicios" className="bg-navy-100 py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -92,4 +92,4 @@ export default function Services() {
       </div>
     </section>
   );
-}
+};

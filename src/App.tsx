@@ -1,10 +1,10 @@
-import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import Strengths from '@/components/Strengths';
-import Services from '@/components/Services';
-import Different from '@/components/Different';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+import { Navbar } from '@/components/Navbar';
+import { Hero } from '@/components/Hero';
+import { Strengths } from '@/components/Strengths';
+import { Services } from '@/components/Services';
+import { Different } from '@/components/Different';
+import { Contact } from '@/components/Contact';
+import { Footer } from '@/components/Footer';
 
 export default function App() {
   return (

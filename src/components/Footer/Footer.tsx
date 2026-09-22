@@ -64,7 +64,7 @@ function validate(job: JobState): Errors {
   return errors;
 }
 
-export default function Footer() {
+export const Footer = () => {
   const year = new Date().getFullYear();
   const [fsState, fsSubmit] = useForm('xwlezplr');
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -404,7 +404,7 @@ export default function Footer() {
       )}
     </>
   );
-}
+};
 
 function JobField({
   label,

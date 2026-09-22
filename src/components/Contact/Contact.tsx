@@ -54,7 +54,7 @@ function validate(form: FormState): Errors {
   return errors;
 }
 
-export default function Contact() {
+export const Contact = () => {
   const formRef = useReveal<HTMLFormElement>();
   const infoRef = useReveal<HTMLDivElement>();
   const [fsState, fsSubmit] = useForm('xeajdoae');
@@ -352,7 +352,7 @@ export default function Contact() {
       </div>
     </section>
   );
-}
+};
 
 function Field({
   label,
