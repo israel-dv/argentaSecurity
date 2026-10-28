@@ -26,13 +26,13 @@ function validate(form: FormState): Errors {
   if (!form.name.trim()) {
     errors.name = 'Ingresa tu nombre.';
   } else if (!NAME_RE.test(form.name)) {
-    errors.name = 'El nombre solo puede contener letras y espacios.';
+    errors.name = 'Una pruebita.';
   }
 
   if (!form.email.trim()) {
     errors.email = 'Ingresa tu correo electrónico.';
   } else if (!EMAIL_RE.test(form.email)) {
-    errors.email = 'Ingresa un correo electrónico válido.';
+    errors.email = 'Esta es una prueba';
   }
 
   if (form.phone && !PHONE_RE.test(form.phone)) {
