@@ -64,7 +64,7 @@ function validate(job: JobState): Errors {
   return errors;
 }
 
-export const Footer = () => {
+export default function Footer() {
   const year = new Date().getFullYear();
   const [fsState, fsSubmit] = useForm('xwlezplr');
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -89,7 +89,7 @@ export const Footer = () => {
   const blur = (key: keyof JobState) =>
     setTouched((t) => ({ ...t, [key]: true }));
 
-  const showError = (key: keyof JobState) =>
+  const showError = (key: keyof JobState): string | undefined =>
     touched[key] ? errors[key] : undefined;
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -132,8 +132,9 @@ export const Footer = () => {
             <div>
               <div className="mb-6 flex items-center">
                 <img
-                  src="/images/Logo_oscuro.png"
+                  src="/images/Logo_oscuro.webp"
                   alt="Sentinel"
+                  loading="lazy"
                   className="h-12 w-auto rounded-lg sm:h-14"
                 />
               </div>
@@ -264,12 +265,11 @@ export const Footer = () => {
                     </>
                   )}
                 </button>
-                {fsState.errors &&
-                  fsState.errors.getFormErrors().length > 0 && (
-                    <p className="mt-4 text-sm text-red-300">
-                      No pudimos enviar tu solicitud. Inténtalo de nuevo.
-                    </p>
-                  )}
+                {fsState.errors && (
+                  <p className="mt-4 text-sm text-red-300">
+                    No pudimos enviar tu solicitud. Inténtalo de nuevo.
+                  </p>
+                )}
                 {fsState.succeeded && (
                   <p className="mt-4 text-sm text-white/80">
                     ¡Gracias! Hemos recibido tu solicitud.
@@ -301,8 +301,9 @@ export const Footer = () => {
 
             <div className="flex items-start justify-center lg:justify-start">
               <img
-                src="/images/Marca_Guanajuato.png"
+                src="/images/Marca_Guanajuato.webp"
                 alt="Marca Guanajuato"
+                loading="lazy"
                 className="w-48 h-auto object-contain sm:w-64 lg:w-96"
               />
             </div>
@@ -404,7 +405,7 @@ export const Footer = () => {
       )}
     </>
   );
-};
+}
 
 function JobField({
   label,

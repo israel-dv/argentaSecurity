@@ -1,7 +1,7 @@
 import { DIFFERENCES } from '@/data';
 import { useReveal } from '@/hooks/useReveal';
 
-export const Different = () => {
+export default function Different() {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -29,6 +29,7 @@ export const Different = () => {
                 <img
                   src={d.image}
                   alt={d.title}
+                  loading="lazy"
                   className="h-20 w-20 object-contain transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
@@ -56,4 +57,4 @@ export const Different = () => {
       </div>
     </section>
   );
-};
+}

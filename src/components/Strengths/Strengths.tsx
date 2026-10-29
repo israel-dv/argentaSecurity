@@ -1,6 +1,6 @@
 import { useReveal } from '@/hooks/useReveal';
 
-export const Strengths = () => {
+export default function Strengths() {
   const { ref, visible } = useReveal<HTMLDivElement>();
   const imgReveal = useReveal<HTMLDivElement>();
 
@@ -13,6 +13,7 @@ export const Strengths = () => {
         src="/images/Oficinas.jpg"
         alt=""
         aria-hidden="true"
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-navy-950/80" />
@@ -37,8 +38,9 @@ export const Strengths = () => {
             }`}
           >
             <img
-              src="/images/Cliente_.png"
+              src="/images/Cliente_.webp"
               alt="Atención al cliente"
+              loading="lazy"
               className="h-full w-full object-cover"
             />
           </div>
@@ -54,4 +56,4 @@ export const Strengths = () => {
       </div>
     </section>
   );
-};
+}

@@ -9,7 +9,7 @@ const LINKS = [
   { label: 'Bolsa de Trabajo', href: '#bolsa-de-trabajo' },
 ];
 
-export const Navbar = () => {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -67,8 +67,9 @@ export const Navbar = () => {
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
           <img
-            src="/images/Marca_Guanajuato.png"
+            src="/images/Marca_Guanajuato.webp"
             alt="Marca Guanajuato"
+            loading="lazy"
             className="h-10 w-auto shrink-0 object-contain sm:h-12 lg:h-14"
           />
         </div>
@@ -93,4 +94,4 @@ export const Navbar = () => {
       )}
     </header>
   );
-};
+}

@@ -1,4 +1,4 @@
-export const HERO_IMAGE = '/images/landing_inicio_.png';
+export const HERO_IMAGE = '/images/landing_inicio_.webp';
 
 export const STRENGTHS = [
   { label: 'Tecnología', value: 95 },
@@ -13,7 +13,7 @@ export const SERVICES = [
   {
     title: 'EPR: Guardias especialistas en protección y riesgos',
     description: '',
-    image: '/images/EPR..png',
+    image: '/images/EPR.webp',
     bullets: [
       'Seguridad Intramuros con personal que cuenta con un esquema de profesionalización en 3 niveles.',
       'Perfiles enfocados a identificar riesgos, prevenir incidentes, proteger personas, activos y la continuidad de tu operación.',
@@ -22,7 +22,7 @@ export const SERVICES = [
   {
     title: 'PRISMA: Análisis de riesgos en 4 ejes',
     description: '',
-    image: '/images/PRISMA..png',
+    image: '/images/PRISMA.webp',
     bullets: [
       'Examinamos procesos claves y activos críticos.',
       'Analizamos incidentes históricos.',
@@ -33,7 +33,7 @@ export const SERVICES = [
   {
     title: 'SILVER: Plataforma digital que centraliza la información operativa',
     description: '',
-    image: '/images/SILVER..png',
+    image: '/images/SILVER.webp',
     bullets: [
       'Conoce en tiempo real lo que está ocurriendo en tu operación sin esperar reportes semanales.',
       'Respaldamos la toma de decisiones oportunas y la mejora continua.',
@@ -43,7 +43,7 @@ export const SERVICES = [
   {
     title: 'APOLO: Consultoría estratégica con criterio experto',
     description: '',
-    image: '/images/APOLO..png',
+    image: '/images/APOLO.webp',
     bullets: [
       'Reduce pérdidas en inventarios y disrupciones operativas con asesoría especializada.',
       'Evaluamos casos complejos de seguridad.',
@@ -53,18 +53,18 @@ export const SERVICES = [
 
 export const DIFFERENCES = [
   {
-    image: '/images/Icono_01..png',
+    image: '/images/Icono_01.webp',
     title: 'Seleccionamos a las personas correctas',
     text: 'Aplicamos filtros de contratación basados en Estándares Internacionales, incorporando una metodología de selección 360 que integra pruebas de polígrafo para asegurar la integridad del personal.',
   },
   {
-    image: '/images/Icono_02..png',
+    image: '/images/Icono_02.webp',
     title:
       'Gestionamos la exposición al riesgo mediante nuestra metodología PRISMA.',
     text: 'Examinamos los procesos claves e identificamos los activos críticos para decidir que riesgos priorizar y asignar los recursos donde realmente generan valor.',
   },
   {
-    image: '/images/Icono_03..png',
+    image: '/images/Icono_03.webp',
     title:
       'Mantenemos una operación estable que fortalece la continuidad del servicio.',
     text: 'Fomentamos el arraigo y pertenencia de nuestro personal a través de:',
@@ -75,17 +75,17 @@ export const DIFFERENCES = [
     ],
   },
   {
-    image: '/images/Icono_04..png',
+    image: '/images/Icono_04.webp',
     title: 'Contamos con un esquema de profesionalización.',
     text: 'Convertimos a nuestros Guardias en Especialistas en Protección y riesgos, adquiriendo competencias sólidas para proteger eficientemente las operaciones.',
   },
   {
-    image: '/images/Icono_05..png',
+    image: '/images/Icono_05.webp',
     title: 'Generamos visibilidad operativa en tiempo real.',
     text: 'Si no se cuenta con estadísticas es difícil tomar decisiones, por ello Argenta integra SILVER, plataforma que centraliza la información operativa para genera indicadores eficientes que ayudan a la Dirección a priorizar las acciones preventivas.',
   },
   {
-    image: '/images/Icono_06..png',
+    image: '/images/Icono_06.webp',
     title: 'El Cliente está en el centro de nuestras prioridades.',
     text: 'Por ello en Argenta integramos herramientas que ayudan a la Dirección a:',
     bullets: [
