@@ -31,7 +31,7 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6">
         <a href="#inicio" className="flex items-center gap-2.5 text-white">
           <img
-            src="/images/Logo.jpg"
+            src="/images/Logo.webp"
             alt="Sentinel"
             className="h-10 w-auto max-w-[180px] rounded-lg object-contain sm:h-12"
           />
