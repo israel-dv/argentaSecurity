@@ -10,7 +10,7 @@ export default function Strengths() {
       className="relative overflow-hidden bg-navy-900 py-24"
     >
       <img
-        src="/images/Oficinas.jpg"
+        src="/images/Oficinas.webp"
         alt=""
         aria-hidden="true"
         loading="lazy"
