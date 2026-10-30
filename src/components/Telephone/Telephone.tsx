@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Phone } from 'lucide-react';
 
-const PHONE = '';
-const PHONE_2 = '';
-const MESSAGE = 'Hola, me interesa saber más información';
+const PHONE = '5214611273519';
+const PHONE_CALLS = '524611273519';
+const MESSAGE = 'Hola, me interesa saber más información sobre sus servicios.';
 
 export function Telephone() {
   const [visible, setVisible] = useState(false);
@@ -16,7 +16,7 @@ export function Telephone() {
   }, []);
 
   const waHref = `https://wa.me/${PHONE}?text=${encodeURIComponent(MESSAGE)}`;
-  const telHref = `tel:${PHONE_2}`;
+  const telHref = `tel:${PHONE_CALLS}`;
 
   const showClass = visible
     ? 'translate-y-0 opacity-100'
