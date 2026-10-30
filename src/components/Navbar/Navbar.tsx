@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const LINKS = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Nosotros', href: '#diferencia' },
-  { label: 'Contacto', href: '#contacto' },
-  { label: 'Bolsa de Trabajo', href: '#bolsa-de-trabajo' },
+  { label: 'Inicio', href: '/#inicio' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Nosotros', href: '/#diferencia' },
+  { label: 'Contacto', href: '/#contacto' },
+  { label: 'Bolsa de Trabajo', href: '/bolsa-trabajo' },
 ];
 
-export default function Navbar() {
+export const Navbar = ({ solid = false }: { solid?: boolean }) => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -22,14 +22,14 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+      className={`${solid ? 'relative' : 'fixed top-0 left-0 right-0'} z-50 transition-all duration-500 ${
+        scrolled || solid
           ? 'bg-navy-900/95 backdrop-blur-md shadow-lg shadow-navy-950/30 py-3'
           : 'bg-gradient-to-b from-navy-950/60 to-transparent py-5'
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6">
-        <a href="#inicio" className="flex items-center gap-2.5 text-white">
+        <a href="/#inicio" className="flex items-center gap-2.5 text-white">
           <img
             src="/images/Logo.webp"
             alt="Sentinel"
@@ -42,7 +42,7 @@ export default function Navbar() {
         </span>
 
         <div
-          className={`hidden lg:block h-8 w-px bg-white/25 transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`}
+          className={`hidden lg:block h-8 w-px bg-white/25 transition-opacity duration-500 ${scrolled || solid ? 'opacity-100' : 'opacity-0'}`}
         />
 
         <div className="flex items-center gap-4 lg:gap-6">
@@ -94,4 +94,4 @@ export default function Navbar() {
       )}
     </header>
   );
-}
+};
