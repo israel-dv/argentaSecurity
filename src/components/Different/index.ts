@@ -1,1 +1,1 @@
-export { Different } from './Different';
+export { default as Different } from './Different';

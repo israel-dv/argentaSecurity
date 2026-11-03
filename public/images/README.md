@@ -6,8 +6,8 @@ Your images live in two places:
 
 | File                    | Where it shows up           | Recommended size    |
 | ----------------------- | --------------------------- | ------------------- |
-| landing_image.png       | Big image at the very top   | 2000x1200 px (wide) |
-| seguridad-privada.png   | "Nuestros Servicios" card 1 | 1200x1600 px (tall) |
+| landing_image.webp      | Big image at the very top   | 2000x1200 px (wide) |
+| seguridad-privada.webp  | "Nuestros Servicios" card 1 | 1200x1600 px (tall) |
 | escoltas-ejecutivos.jpg | "Nuestros Servicios" card 2 | 1200x1600 px (tall) |
 | monitoreo-camaras.jpg   | "Nuestros Servicios" card 3 | 1200x1600 px (tall) |
 | k9-canes.jpg            | "Nuestros Servicios" card 4 | 1200x1600 px (tall) |

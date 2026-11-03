@@ -22,6 +22,7 @@ function ServiceCard({
       <img
         src={image}
         alt={title}
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
       />
       <div
@@ -65,7 +66,7 @@ function ServiceCard({
   );
 }
 
-export const Services = () => {
+export default function Services() {
   return (
     <section id="servicios" className="bg-navy-100 py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -92,4 +93,4 @@ export const Services = () => {
       </div>
     </section>
   );
-};
+}

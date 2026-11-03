@@ -1,1 +1,1 @@
-export { Strengths } from './Strengths';
+export { default as Strengths } from './Strengths';

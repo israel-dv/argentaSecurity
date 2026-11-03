@@ -50,8 +50,9 @@ export const Footer = () => {
             <div className="min-w-0">
               <div className="mb-6 flex items-center">
                 <img
-                  src="/images/Logo_oscuro.png"
+                  src="/images/Logo_oscuro.webp"
                   alt="Sentinel"
+                  loading="lazy"
                   className="h-12 w-auto max-w-full rounded-lg object-contain sm:h-14"
                 />
               </div>
@@ -73,8 +74,9 @@ export const Footer = () => {
 
             <div id="marca-guanajuato" className="flex min-w-0 justify-end">
               <img
-                src="/images/Marca_Guanajuato.png"
+                src="/images/Marca_Guanajuato.webp"
                 alt="Marca Guanajuato"
+                loading="lazy"
                 className="h-24 w-auto max-w-full object-contain sm:h-28"
               />
             </div>

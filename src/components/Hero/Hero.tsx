@@ -1,11 +1,13 @@
 import { HERO_IMAGE } from '@/data';
 
-export const Hero = () => {
+export default function Hero() {
   return (
     <section id="inicio" className="relative w-full overflow-hidden">
-      <div
-        className="h-screen min-h-[560px] w-full bg-cover bg-center"
-        style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+      <img
+        src={HERO_IMAGE}
+        alt=""
+        loading="lazy"
+        className="h-screen min-h-[560px] w-full object-cover object-center"
       />
       <div className="absolute inset-0 flex items-end bg-gradient-to-t from-navy-950/90 via-navy-950/50 to-transparent">
         <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16 lg:px-8 lg:pb-20">
@@ -22,4 +24,4 @@ export const Hero = () => {
       </div>
     </section>
   );
-};
+}

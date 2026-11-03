@@ -31,7 +31,7 @@ export const Navbar = ({ solid = false }: { solid?: boolean }) => {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6">
         <a href="/#inicio" className="flex items-center gap-2.5 text-white">
           <img
-            src="/images/Logo.jpg"
+            src="/images/Logo.webp"
             alt="Sentinel"
             className="h-10 w-auto max-w-[180px] rounded-lg object-contain sm:h-12"
           />
@@ -67,8 +67,9 @@ export const Navbar = ({ solid = false }: { solid?: boolean }) => {
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
           <img
-            src="/images/Marca_Guanajuato.png"
+            src="/images/Marca_Guanajuato.webp"
             alt="Marca Guanajuato"
+            loading="lazy"
             className="h-10 w-auto shrink-0 object-contain sm:h-12 lg:h-14"
           />
         </div>
