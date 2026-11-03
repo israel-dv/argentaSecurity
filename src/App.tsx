@@ -6,6 +6,7 @@ import { Different } from '@/components/Different';
 import { Contact } from '@/components/Contact';
 import { JobApplications } from '@/components/JobApplications';
 import { Footer } from '@/components/Footer';
+import { Telephone } from '@/components/Telephone';
 
 const JOBS_PATH = '/bolsa-trabajo';
 
@@ -29,6 +30,7 @@ export default function App() {
         )}
       </main>
       <Footer />
+      <Telephone />
     </div>
   );
 }
