@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Phone } from 'lucide-react';
+import { trackConversion } from '@/lib/analytics';
 
 const PHONE = '5214611273519';
 const PHONE_CALLS = '524611273519';
@@ -26,6 +27,7 @@ export function Telephone() {
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-center gap-3">
       <a
         href={telHref}
+        onClick={() => trackConversion('phone', 'click_telefono')}
         aria-label="Llamar por teléfono"
         className={`flex h-12 w-12 items-center justify-center rounded-full bg-navy-700 shadow-lg shadow-black/30 transition-all duration-300 hover:scale-110 hover:bg-navy-800 sm:h-14 sm:w-14 ${showClass}`}
       >
@@ -33,6 +35,7 @@ export function Telephone() {
       </a>
       <a
         href={waHref}
+        onClick={() => trackConversion('whatsapp', 'click_whatsapp')}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chatear por WhatsApp"

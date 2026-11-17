@@ -32,7 +32,7 @@ export const Navbar = ({ solid = false }: { solid?: boolean }) => {
         <a href="/#inicio" className="flex items-center gap-2.5 text-white">
           <img
             src="/images/Logo.webp"
-            alt="Sentinel"
+            alt="Argenta Risk Management"
             className="h-10 w-auto max-w-[180px] rounded-lg object-contain sm:h-12"
           />
         </a>

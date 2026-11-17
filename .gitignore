@@ -21,3 +21,6 @@ dist/
 
 # macOS
 .DS_Store
+# Solo yarn
+package-lock.json
+npm-shrinkwrap.json

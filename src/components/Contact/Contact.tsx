@@ -99,16 +99,7 @@ export const Contact = () => {
 
   useEffect(() => {
     if (fsState.succeeded) {
-      window.gtag?.('event', 'conversion', {
-        send_to: 'AW-18399262467/NYEVCJHfhOkcEIPuucVE',
-      });
-      setTouched({
-        name: false,
-        email: false,
-        phone: false,
-        location: false,
-        message: false,
-      });
+      window.location.assign('/gracias');
     }
   }, [fsState.succeeded]);
 

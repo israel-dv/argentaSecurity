@@ -5,7 +5,7 @@ export default function Hero() {
     <section id="inicio" className="relative w-full overflow-hidden">
       <img
         src={HERO_IMAGE}
-        alt=""
+        alt="Guardias de seguridad privada de Argenta protegiendo instalaciones empresariales"
         loading="lazy"
         className="h-screen min-h-[560px] w-full object-cover object-center"
       />

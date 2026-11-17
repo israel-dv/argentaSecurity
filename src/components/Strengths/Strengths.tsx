@@ -11,8 +11,7 @@ export default function Strengths() {
     >
       <img
         src="/images/Oficinas.webp"
-        alt=""
-        aria-hidden="true"
+        alt="Oficinas corporativas de Argenta en Celaya"
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover"
       />

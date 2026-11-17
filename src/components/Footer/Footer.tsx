@@ -51,7 +51,7 @@ export const Footer = () => {
               <div className="mb-6 flex items-center">
                 <img
                   src="/images/Logo_oscuro.webp"
-                  alt="Sentinel"
+                  alt="Argenta Risk Management"
                   loading="lazy"
                   className="h-12 w-auto max-w-full rounded-lg object-contain sm:h-14"
                 />
